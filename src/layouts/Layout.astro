@@ -20,11 +20,14 @@ const { title, description } = Astro.props;
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="description" content={description || "Clay Theme"} />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta
+  name="description"
+  content={description || "Premium mobile detailing serving McKinney & Collin County, TX."}
+/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <title>{title || "Clay"}</title>
+        <title>{title ? `${title} | Factory Reset Detail` : "Factory Reset Detail"}</title>
         <ClientRouter />
         <script is:inline>
             // Theme init
@@ -45,7 +48,8 @@ const { title, description } = Astro.props;
         </script>
     </head>
     <body class="site-wrapper">
-        <Header title={title} />
+        <Header title={title || "Factory Reset Detail"} />
+
 
         <main id="site-main" class="site-main">
             <div id="swup" class="transition-fade">
