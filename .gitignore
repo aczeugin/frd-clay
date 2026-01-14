@@ -1,0 +1,12 @@
+# dependencies
+node_modules/
+
+# Astro build + cache
+.astro/
+
+# Vite cache
+.vite/
+
+# OS junk
+.DS_Store
+Thumbs.db
