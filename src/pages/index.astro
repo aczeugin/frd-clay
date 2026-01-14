@@ -1,62 +1,89 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PostCard from '../components/PostCard.astro';
-import { getCollection } from 'astro:content';
-
-// Fetch all collections
-const allPages = await getCollection('pages');
-const allNews = await getCollection('news');
-const allWork = await getCollection('work');
-const allSold = await getCollection('sold');
-
-// Combine for filtering
-const allContent = [...allPages, ...allNews, ...allWork, ...allSold];
-
-// Filter for pagetype containing 'main' and sort by number
-const posts = allContent.filter(item => {
-    return item.data.pagetype && item.data.pagetype.includes('main');
-}).sort((a, b) => {
-    const numA = a.data.number || 9999;
-    const numB = b.data.number || 9999;
-    return numA - numB;
-});
-
-// Get index-page metadata (from pages collection)
-const indexPage = allPages.find(p => p.slug === 'index');
-const title = indexPage?.data.title || 'Clay';
-const description = indexPage?.data.description;
-
-let postCounter = 0;
 ---
 
-<Layout title={title} description={description}>
-    <div class="post-feed">
-        {posts.map((post) => {
-            postCounter++;
-            // Calculate slug. If it's from 'pages', slug is just slug (or flattened).
-            // content/pages/bio.md -> slug 'bio'.
-            // content/work/work-1.md -> slug 'work-1'? No, in config.ts, work collection.
-            // But legacy mapped work/work-1.md -> /work/work-1
-            // My [...slug].astro will handle mapping.
-            // Here I need to generate the same link.
+<Layout title="Factory Reset Detail" description="Premium mobile detailing in McKinney, TX.">
+  <main class="home">
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Mobile Detailing • McKinney, TX</p>
+        <h1>Factory-level results. Delivered to your driveway.</h1>
+        <p class="subhead">
+          Premium mobile detailing across McKinney & Collin County — a true “factory reset” for your vehicle.
+        </p>
 
-            let slug = post.slug;
-            if (post.collection === 'work') slug = `work/${post.slug}`;
-            if (post.collection === 'news') slug = `news/${post.slug}`;
-            if (post.collection === 'sold') slug = `sold/${post.slug}`;
-            // Pages collection: 'bio' -> 'bio'.
+        <div class="cta">
+          <a class="button" href="/book">Book Now</a>
+          <a class="button secondary" href="/services">View Packages</a>
+        </div>
 
-            // Wait, legacy slug split logic:
-            // src/pages/bio/index.md -> /bio.
-            // content/work/work-1.md -> /work/work-1.
+        <div class="trust">
+          <span>Insured</span>
+          <span>Safe wash methods</span>
+          <span>Professional tools</span>
+        </div>
+      </div>
+    </section>
 
-            return (
-                <PostCard
-                    count={postCounter}
-                    post={post}
-                    slug={slug}
-                />
-            );
-        })}
-    </div>
+    <section class="section">
+      <h2>Signature Packages</h2>
+      <p class="muted">Essential. Executive. Full Reset.</p>
+
+      <div class="cards">
+        <article class="card">
+          <h3>Essential</h3>
+          <p>Maintenance clean with elevated finish — perfect for weekly/bi-weekly upkeep.</p>
+        </article>
+
+        <article class="card">
+          <h3>Executive</h3>
+          <p>Deep interior reset + refined exterior — for vehicles that need real attention.</p>
+        </article>
+
+        <article class="card">
+          <h3>Full Reset</h3>
+          <p>Our most transformative service — restoration-focused detailing inside and out.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Why Factory Reset</h2>
+      <ul class="list">
+        <li>Safe methods and pro-grade products — no shortcuts.</li>
+        <li>Interior-first approach for the “new car” feeling.</li>
+        <li>Convenient on-site service with consistent results.</li>
+      </ul>
+    </section>
+
+    <section class="section cta-band">
+      <h2>Ready for the reset?</h2>
+      <p class="muted">Book in minutes. We come to you.</p>
+      <a class="button" href="/book">Check Availability</a>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  .home { display: grid; gap: 4rem; }
+  .hero { padding: 4rem 1.25rem; }
+  .hero-inner { max-width: 900px; margin: 0 auto; display: grid; gap: 1rem; }
+  .eyebrow { letter-spacing: .08em; text-transform: uppercase; font-size: .85rem; opacity: .8; }
+  .subhead { font-size: 1.1rem; opacity: .9; max-width: 60ch; }
+
+  .cta { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: .5rem; }
+  .button { display: inline-flex; align-items: center; justify-content: center; padding: .75rem 1rem; border-radius: 999px; text-decoration: none; }
+  .secondary { opacity: .85; }
+
+  .trust { display: flex; gap: 1rem; flex-wrap: wrap; opacity: .8; font-size: .95rem; margin-top: .75rem; }
+  .trust span { padding: .25rem .6rem; border-radius: 999px; }
+
+  .section { padding: 0 1.25rem; max-width: 1100px; margin: 0 auto; display: grid; gap: 1rem; }
+  .muted { opacity: .85; }
+
+  .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .card { padding: 1.25rem; border-radius: 1.25rem; }
+  .list { display: grid; gap: .5rem; padding-left: 1.1rem; }
+
+  .cta-band { padding: 2rem 1.25rem; border-radius: 1.5rem; }
+</style>
