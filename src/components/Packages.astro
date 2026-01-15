@@ -1,0 +1,130 @@
+---
+const packages = [
+  {
+    name: "Essential",
+    tagline: "A crisp refresh for well-kept vehicles.",
+    price: "Starting at $149",
+    bullets: [
+      "Hand wash + gentle dry",
+      "Wheels + tires cleaned",
+      "Interior vacuum + wipe-down",
+      "Glass cleaned (interior/exterior)",
+      "Light trim + touch points",
+    ],
+  },
+  {
+    name: "Executive",
+    badge: "Most Popular",
+    tagline: "Deeper cleaning, sharper finishing, elevated results.",
+    price: "Starting at $229",
+    bullets: [
+      "Everything in Essential",
+      "Thorough interior cleaning",
+      "Detail brush + crevice work",
+      "Door jambs cleaned",
+      "Enhanced finishing touches",
+    ],
+  },
+  {
+    name: "Signature",
+    tagline: "For vehicles that need a true reset.",
+    price: "Starting at $349",
+    bullets: [
+      "Everything in Executive",
+      "Deep interior restoration focus",
+      "Heavier soil attention",
+      "Premium finishing details",
+      "Best for neglected vehicles",
+    ],
+  },
+];
+---
+
+<section class="packages">
+  <header class="packages-head">
+    <h3 class="packages-title">Packages</h3>
+    <p class="packages-subtitle">
+      Choose your level of reset — each package is built for clean, refined results.
+    </p>
+  </header>
+
+  <div class="packages-grid">
+    {packages.map((p) => (
+      <article class={`package ${p.badge ? "is-featured" : ""}`}>
+        <div class="package-top">
+          <h4 class="package-name">{p.name}</h4>
+          {p.badge && <span class="package-badge">{p.badge}</span>}
+        </div>
+
+        <p class="package-tagline">{p.tagline}</p>
+        <p class="package-price">{p.price}</p>
+
+        <ul class="package-list">
+          {p.bullets.map((b) => (
+            <li>{b}</li>
+          ))}
+        </ul>
+
+        <a class="button" href="/book">Book Now</a>
+      </article>
+    ))}
+  </div>
+</section>
+<style>
+  .packages { margin-top: 2.5rem; }
+
+  .packages-head { max-width: 65ch; margin-bottom: 1.25rem; }
+  .packages-title { margin: 0 0 0.35rem 0; }
+  .packages-subtitle { margin: 0; opacity: 0.85; }
+
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .package {
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 16px;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(6px);
+  }
+
+  .package.is-featured {
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .package-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .package-name { margin: 0; }
+
+  .package-badge {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    opacity: 0.95;
+    white-space: nowrap;
+  }
+
+  .package-tagline { margin: 0.25rem 0 0.75rem 0; opacity: 0.9; }
+  .package-price { margin: 0 0 0.85rem 0; font-weight: 600; }
+
+  .package-list { margin: 0 0 1rem 0; padding-left: 1.1rem; opacity: 0.9; }
+
+  .package .button { display: inline-block; margin-top: 0.25rem; }
+
+  @media (max-width: 900px) {
+    .packages-grid { grid-template-columns: 1fr; }
+  }
+</style>

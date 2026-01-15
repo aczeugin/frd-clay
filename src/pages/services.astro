@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Packages from "../components/Packages.astro";
 ---
 
 <Layout
@@ -20,16 +21,6 @@ import Layout from "../layouts/Layout.astro";
       factory reset.
     </p>
 
-    <section class="packages-grid">
-      <article class="package">
-        <h3>Essential</h3>
-        <p>
-          A meticulous maintenance service for pristine, week-after-week
-          results. Ideal for those who appreciate a well-kept vehicle, inside
-          and out.
-        </p>
-        <a class="button" href="/book">Book Now</a>
-      </article>
-
-      <article class="package">
-        <h3>Exec
+    <Packages />
+  </main>
+</Layout>
