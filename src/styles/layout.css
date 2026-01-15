@@ -379,4 +379,10 @@ footer.site-foot a {
   .page h1 {
     margin-top: 0;
   }
-  
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-base);
+  min-height: 100%;
+}
